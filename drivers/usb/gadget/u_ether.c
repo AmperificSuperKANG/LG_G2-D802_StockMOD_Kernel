@@ -848,6 +848,8 @@ static int eth_stop(struct net_device *net)
 	spin_lock_irqsave(&dev->lock, flags);
 	if (dev->port_usb) {
 		struct gether	*link = dev->port_usb;
+		const struct usb_endpoint_descriptor *in;
+		const struct usb_endpoint_descriptor *out;
 
 		if (link->close)
 			link->close(link);
@@ -861,8 +863,13 @@ static int eth_stop(struct net_device *net)
 		 * their own pace; the network stack can handle old packets.
 		 * For the moment we leave this here, since it works.
 		 */
+<<<<<<< HEAD
 #ifdef CONFIG_USB_G_LGE_ANDROID_AUTORUN_VZW
 #else
+=======
+		in = link->in_ep->desc;
+		out = link->out_ep->desc;
+>>>>>>> 5527a11... squash linux upstream 3.4.62 into 3.4.0
 		usb_ep_disable(link->in_ep);
 #endif
 		usb_ep_disable(link->out_ep);
@@ -876,6 +883,8 @@ static int eth_stop(struct net_device *net)
 				return -EINVAL;
 			}
 			DBG(dev, "host still using in/out endpoints\n");
+			link->in_ep->desc = in;
+			link->out_ep->desc = out;
 			usb_ep_enable(link->in_ep);
 			usb_ep_enable(link->out_ep);
 		}
