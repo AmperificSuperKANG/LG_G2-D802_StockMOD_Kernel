@@ -1009,8 +1009,11 @@ static cycle_t logarithmic_accumulation(cycle_t offset, int shift)
 		leap = second_overflow(timekeeper.xtime.tv_sec);
 		timekeeper.xtime.tv_sec += leap;
 		timekeeper.wall_to_monotonic.tv_sec -= leap;
+<<<<<<< HEAD
+=======
 		if (leap)
 			clock_was_set_delayed();
+>>>>>>> 5527a11... squash linux upstream 3.4.62 into 3.4.0
 	}
 
 	/* Accumulate raw time */
@@ -1130,8 +1133,11 @@ static void update_wall_time(void)
 		leap = second_overflow(timekeeper.xtime.tv_sec);
 		timekeeper.xtime.tv_sec += leap;
 		timekeeper.wall_to_monotonic.tv_sec -= leap;
+<<<<<<< HEAD
+=======
 		if (leap)
 			clock_was_set_delayed();
+>>>>>>> 5527a11... squash linux upstream 3.4.62 into 3.4.0
 	}
 
 	timekeeping_update(false);
